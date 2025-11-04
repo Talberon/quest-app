@@ -6,7 +6,7 @@ function App() {
   const roles = Roles
 
   return (
-    <div>
+    <div className='flex flex-wrap gap-2'>
       {roles.map((role) => {
         return <RoleCard key={role.name} role={role} chosen={false} />
       })}
