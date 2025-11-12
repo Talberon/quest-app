@@ -1,14 +1,33 @@
+import { useDraggable } from '@dnd-kit/core'
 import type { Role } from '../model/card'
+import { CSS } from '@dnd-kit/utilities'
 
 interface RoleCardProps {
   role: Role
-  chosen: boolean
+  hasBeenDrafted: boolean
 }
 
 export function RoleCard(props: RoleCardProps) {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: `${props.role.name}`,
+  })
+  const style = transform
+    ? {
+        transform: CSS.Translate.toString(transform),
+      }
+    : undefined
+
+  let cardColor =
+    props.role.alignment == 'GOOD' ? `bg-teal-800` : `bg-amber-800`
+  if (props.hasBeenDrafted) cardColor = cardColor + ` opacity-30`
+
   return (
     <div
-      className={`flex flex-col relative w-60 h-70 rounded text-slate-400 p-2 ${props.role.alignment == 'GOOD' ? `bg-teal-800` : `bg-amber-800`}`}
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      className={`flex flex-col relative select-none w-60 h-70 rounded text-slate-400 p-2 ${cardColor}`}
     >
       {props.role.shootable && (
         <div className="absolute top-1 p-2 bg-orange-800 rounded-full text-orange-600 font-semibold text-xs">
