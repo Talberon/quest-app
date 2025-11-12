@@ -4,12 +4,13 @@ import { CSS } from '@dnd-kit/utilities'
 
 interface RoleCardProps {
   role: Role
+  zone: string
   hasBeenDrafted: boolean
 }
 
 export function RoleCard(props: RoleCardProps) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: `${props.role.name}`,
+    id: `${props.zone}|${props.role.name}`,
   })
   const style = transform
     ? {

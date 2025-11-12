@@ -6,7 +6,7 @@ import { Roster } from './components/roster'
 import { useState } from 'react'
 
 function App() {
-  const roles = Roles.filter((role) => role.balance === 0)
+  const roles = Object.values(Roles) //.filter((role) => role.balance === 0)
 
   const [drafted, setIsDrafted] = useState<string[]>([])
 
@@ -20,6 +20,7 @@ function App() {
               <RoleCard
                 key={role.name}
                 role={role}
+                zone="draft"
                 hasBeenDrafted={hasBeenDrafted(role.name)}
               />
             )
@@ -30,13 +31,31 @@ function App() {
   )
 
   function hasBeenDrafted(roleName: string) {
-    return drafted.includes(roleName)
+    return drafted.filter((r) => r.endsWith(roleName)).length > 0
   }
 
   function handleDragEnd(event: any) {
-    console.log('DRAG END EVENT', event)
-    if (event.over && event.over.id === 'roster') {
-      setIsDrafted([...drafted, event.active.id])
+    const cardId = event.active.id
+    const dropZone = event.over?.id || 'none'
+    const [zone, role, ...etc] = cardId.split('|')
+    console.log(
+      'DRAG END EVENT',
+      'dropzone',
+      dropZone,
+      'originZone',
+      zone,
+      'role',
+      role,
+      etc
+    )
+    if (event.over && event.over.id === 'roster' && zone !== 'roster') {
+      console.log('Dragged into roster', role)
+      setIsDrafted([...drafted, cardId])
+    }
+    if ((zone === 'roster' && !event.over) || event.over?.id !== 'roster') {
+      console.log('Dragged out of roster, removing', role)
+      const newDrafted = drafted.filter((r) => r.endsWith(role) === false)
+      setIsDrafted(newDrafted)
     }
   }
 }
