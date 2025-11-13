@@ -6,6 +6,7 @@ interface RoleCardProps {
   role: Role
   zone: string
   hasBeenDrafted: boolean
+  showDescription: boolean
 }
 
 export function RoleCard(props: RoleCardProps) {
@@ -31,16 +32,18 @@ export function RoleCard(props: RoleCardProps) {
       style={style}
       {...listeners}
       {...attributes}
-      className={`flex flex-col relative select-none w-40 h-70 rounded text-slate-400 p-2 ${cardColor}`}
+      className={`flex flex-col relative select-none w-40 max-h-70 rounded text-slate-400 p-2 ${cardColor}`}
     >
       <h2 className="text-lg font-bold text-slate-300">{props.role.name}</h2>
       <div className="text-5xl">{props.role.image}</div>
       {/* <div>{props.role.alignment}</div> */}
-      <div className="flex grow justify-center bg-slate-800 opacity-40 rounded p-2 m-1">
-        <p className="align-middle self-center opacity-100 text-slate-200">
-          {props.role.description}
-        </p>
-      </div>
+      {props.showDescription && (
+        <div className="flex grow justify-center bg-slate-800 opacity-40 rounded p-2 m-1">
+          <p className="align-middle self-center opacity-100 text-slate-200">
+            {props.role.description}
+          </p>
+        </div>
+      )}
       {props.role.shootable && (
         <div className="absolute top-11 p-2 bg-orange-800 outline-slate-700 outline-1 rounded-full text-orange-600 font-semibold text-xs">
           🔫

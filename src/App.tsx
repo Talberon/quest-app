@@ -8,12 +8,35 @@ import { useState } from 'react'
 function App() {
   const roles = Object.values(Roles) //.filter((role) => role.balance === 0)
 
-  const [drafted, setIsDrafted] = useState<string[]>(['draft|Cleric', 'draft|Morgan le Fay', 'draft|Blind Hunter'])
+  const [drafted, setIsDrafted] = useState<string[]>([
+    'draft|Cleric',
+    'draft|Morgan le Fay',
+    'draft|Blind Hunter',
+  ])
+  const [showDescriptions, setShowDescriptions] = useState<boolean>(true)
 
   return (
     <div>
       <DndContext onDragEnd={handleDragEnd}>
+        {/* Roster */}
         <Roster children={drafted} />
+
+        <label className="inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            checked={showDescriptions}
+            className="sr-only peer"
+            onChange={(_) => {
+              setShowDescriptions(!showDescriptions)
+            }}
+          ></input>
+          <div className="relative w-9 h-5 bg-neutral-quaternary peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-purple-soft dark:peer-focus:ring-purple-soft rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-buffer after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-purple-500 bg-slate-500"></div>
+          <span className="select-none ms-3 text-sm font-medium text-heading">
+            Show descriptions
+          </span>
+        </label>
+
+        {/* Loyal Servants Pool */}
         <div className="grid grid-cols-2">
           <div className="bg-teal-950 rounded-2xl p-2">
             <div className="text-xl font-bold mb-3">
@@ -28,12 +51,15 @@ function App() {
                       key={role.name}
                       role={role}
                       zone="draft"
+                      showDescription={showDescriptions}
                       hasBeenDrafted={hasBeenDrafted(role.name)}
                     />
                   )
                 })}
             </div>
           </div>
+
+          {/* Minions Pool */}
           <div className="bg-amber-950 rounded-2xl p-2">
             <div className="text-xl font-bold mb-3">Minions of Mordred</div>
             <div className="flex flex-wrap justify-center gap-2">
@@ -45,6 +71,7 @@ function App() {
                       key={role.name}
                       role={role}
                       zone="draft"
+                      showDescription={showDescriptions}
                       hasBeenDrafted={hasBeenDrafted(role.name)}
                     />
                   )

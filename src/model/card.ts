@@ -25,9 +25,9 @@ export const Roles: Record<string, Role> = {
     "Minion": { name: "Minion", image: "😈", shootable: false, balance: 0, alignment: "EVIL", description: "No special abilities." },
     "Trickster": { name: "Trickster", image: "🤥", shootable: false, balance: -3, alignment: "EVIL", description: "May lie when checked for loyalty or as first leader during pre-game." },
     "Revealer": { name: "Revealer", image: "🫣", shootable: false, balance: 1, alignment: "EVIL", description: "Reveals self at the end of the third failing quest." },
-    "Scion": { name: "Scion", image: "🙈", shootable: false, balance: 2, alignment: "EVIL", description: "Does not know evil. Is known by Morgan le Fay" },
+    "Scion": { name: "Scion", image: "🙈", shootable: false, balance: 1, alignment: "EVIL", description: "Does not know evil. Is known by Morgan le Fay" },
     "Lunatic": { name: "Lunatic", image: "🤪", shootable: false, balance: 1, alignment: "EVIL", description: "Must fail every quest when possible." },
     "Brute": { name: "Brute", image: "💪", shootable: false, balance: 1, alignment: "EVIL", description: "Cannot fail Quest 4 or 5." },
     "Changeling": { name: "Changeling", image: "😶‍🌫️", shootable: false, balance: 2, alignment: "EVIL", description: "Does not know evil. Evil does not know them." },
-    "Mutineer": { name: "Mutineer", image: "🎭", shootable: false, balance: 2, alignment: "EVIL", description: "We don't talk about the Mutineer" },
+    "Mutineer": { name: "Mutineer", image: "🎭", shootable: false, balance: 0, alignment: "EVIL", description: "We don't talk about the Mutineer." },
 }

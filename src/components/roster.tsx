@@ -55,6 +55,7 @@ export function Roster(props: any) {
                   zone="roster"
                   key={role.name}
                   role={role}
+                  showDescription={true}
                   hasBeenDrafted={false}
                 />
               )
