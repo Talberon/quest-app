@@ -46,7 +46,7 @@ export function Roster(props: any) {
         >
           {draftedRoles
             .sort((a, b) => a.balance - b.balance)
-            .sort((a, b) => (a.alignment > b.alignment ? 1 : -1))
+            .sort((a, b) => (a.alignment > b.alignment ? -1 : 1))
             .map((role: Role) => {
               return (
                 <RoleCard
