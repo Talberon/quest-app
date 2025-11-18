@@ -15,7 +15,7 @@ function App() {
     'draft|Morgan le Fay',
     'draft|Blind Hunter',
   ])
-  const [showDescriptions, setShowDescriptions] = useState<boolean>(true)
+  const [showDescriptions, setShowDescriptions] = useState<boolean>(false)
   const [rosterLineups, setRosterLineups] =
     useState<Record<string, Lineup>>(DefaultRosters)
   const [customRosterName, setCustomRosterName] =

@@ -22,7 +22,7 @@ export const Roles: Record<string, Role> = {
     "Troublemaker": { name: "Troublemaker", image: "😨", balance: -2, information: 0, shootable: true, alignment: "GOOD", description: "Must give red card during loyalty check." },
     "Youth": { name: "Youth", image: "👦", balance: -3, information: 0, shootable: true, alignment: "GOOD", description: "Must fail quest if flamed." },
     "Arthur/Cleric": { name: "Arthur/Cleric", image: "⛪️", balance: 3, information: 1, shootable: true, alignment: "GOOD", description: "Randomly pick Arthur or Cleric and tuck the other role away in secret." },
-    "Trouble/Youth": { name: "Trouble/Youth", image: "😱", balance: -1, information: 0, shootable: true, alignment: "GOOD", description: "Randomly pick Troublemaker or Youth and tuck the other role away in secret." },
+    "Troubled Youth": { name: "Troubled Youth", image: "😱", balance: -1, information: 0, shootable: true, alignment: "GOOD", description: "Randomly pick Troublemaker or Youth and tuck the other role away in secret." },
     "RNG Good": { name: "RNG Good", image: "🧑‍🧑‍🧒", balance: 2, information: 1, shootable: true, alignment: "GOOD", description: "4-5P Only. Randomly pick 2 among Youth, Loyal Servant, or Cleric." },
     "RNG Good B": { name: "RNG Good B", image: "🧑‍🧑‍🧒", balance: 2, information: 1, shootable: true, alignment: "GOOD", description: "4-5P Only. Randomly pick 2 among Youth, Loyal Servant, or Cleric." },
     "Morgan le Fay": { name: "Morgan le Fay", image: "❤️‍🔥", shootable: false, balance: -3, information: 3, alignment: "EVIL", description: "May fail a quest, even when flamed." },

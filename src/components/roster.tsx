@@ -53,7 +53,17 @@ export function Roster(props: RosterProps) {
               ? '(Equal)'
               : '(Evil-favoured)'}
         </h2>
-        <h3 className="text-sm font-bold">Players: {draftedRoles.length}</h3>
+        <h3 className="text-sm font-bold">
+          Players: {draftedRoles.length}{' '}
+          <span>
+            {draftedRoles
+              .sort((a, b) => a.balance - b.balance)
+              .sort((role) => (role.alignment === 'GOOD' ? -1 : 1))
+              .map((role) => role.image)
+              .join('')}
+          </span>
+        </h3>
+
         <div
           ref={setNodeRef}
           style={style}

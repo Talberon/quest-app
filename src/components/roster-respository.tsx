@@ -1,3 +1,4 @@
+import { Roles } from '../model/card'
 import type { Lineup } from '../model/rosters'
 
 interface RosterRepositoryProps {
@@ -23,7 +24,7 @@ export function RosterRepository({
     <div className="flex gap-1 justify-center content-top">
       <div id="load-roster">
         <div id="select-roster">
-          <span className="font-semibold">Active Roster:</span>
+          <span className="font-semibold">Roster:</span>
           <select
             value={activePreset}
             className="ml-2 p-2 rounded-l-xl bg-slate-700 text-slate-200 min-w-[300px]"
@@ -31,7 +32,13 @@ export function RosterRepository({
           >
             {Object.keys(rosterLineups).map((rosterName) => (
               <option key={rosterName} value={rosterName}>
-                {rosterName}
+                {rosterName}{' '}
+                {rosterLineups[rosterName]
+                  .map((roleName) => Roles[roleName])
+                  .sort((a, b) => a.balance - b.balance)
+                  .sort((role) => (role.alignment === 'GOOD' ? -1 : 1))
+                  .map((role) => role.image)
+                  .join('')}
               </option>
             ))}
           </select>

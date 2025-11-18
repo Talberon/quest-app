@@ -2,11 +2,11 @@ export type Lineup = string[]
 
 export const DefaultRosters: Record<string, Lineup> = {
     "Blank Slate": ["Morgan le Fay", "Blind Hunter", "Cleric"],
-    "Director's Cut 4P": ["RNG Good", "RNG Good B", "Morgan le Fay", "Blind Hunter"],
-    "Director's Cut 5P": ["RNG Good", "RNG Good B", "Morgan le Fay", "Blind Hunter", "Minion"],
-    "Director's Cut 6P": ["Cleric", "Trouble/Youth", "Duke", "Morgan le Fay", "Blind Hunter", "Minion"],
-    "Director's Cut 7P": ["Cleric", "Trouble/Youth", "Duke", "Morgan le Fay", "Blind Hunter", "Minion", "Minion B"],
-    "Director's Cut 8P": ["Cleric", "Trouble/Youth", "Duke", "Loyal Servant", "Morgan le Fay", "Blind Hunter", "Minion", "Minion B"],
-    "Director's Cut 9P": ["Cleric", "Trouble/Youth", "Archduke", "Loyal Servant", "Morgan le Fay", "Blind Hunter", "Minion", "Minion B", "Minion C"],
-    "Director's Cut 10P": ["Cleric", "Trouble/Youth", "Archduke", "Duke", "Morgan le Fay", "Blind Hunter", "Minion", "Minion B", "Minion C"],
+    "DX: 4P": ["RNG Good", "RNG Good B", "Morgan le Fay", "Blind Hunter"],
+    "DX: 5P": ["RNG Good", "RNG Good B", "Morgan le Fay", "Blind Hunter", "Minion"],
+    "DX: 6P": ["Cleric", "Troubled Youth", "Duke", "Morgan le Fay", "Blind Hunter", "Minion"],
+    "DX: 7P": ["Cleric", "Troubled Youth", "Duke", "Morgan le Fay", "Blind Hunter", "Minion", "Minion B"],
+    "DX: 8P": ["Cleric", "Troubled Youth", "Duke", "Loyal Servant", "Morgan le Fay", "Blind Hunter", "Minion", "Minion B"],
+    "DX: 9P": ["Cleric", "Troubled Youth", "Archduke", "Loyal Servant", "Morgan le Fay", "Blind Hunter", "Minion", "Minion B", "Minion C"],
+    "DX: 10P": ["Cleric", "Troubled Youth", "Archduke", "Duke", "Loyal Servant", "Morgan le Fay", "Blind Hunter", "Minion", "Minion B", "Minion C"],
 }
