@@ -10,8 +10,6 @@ export function Roster(props: any) {
     color: isOver ? 'green' : undefined,
   }
 
-  console.log('ROSTER PROPS', props.children)
-
   const draftedRoleNames: string[] =
     props.children.map((roleName: string) => roleName.split('|')[1]) || []
 

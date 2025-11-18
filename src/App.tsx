@@ -4,6 +4,7 @@ import { RoleCard } from './components/role-card'
 import { DndContext } from '@dnd-kit/core'
 import { Roster } from './components/roster'
 import { useState } from 'react'
+import { DefaultRosters, type Lineup } from './model/rosters'
 
 function App() {
   const roles = Object.values(Roles) //.filter((role) => role.balance === 0)
@@ -14,9 +15,37 @@ function App() {
     'draft|Blind Hunter',
   ])
   const [showDescriptions, setShowDescriptions] = useState<boolean>(true)
+  const [rosterLineups, setRosterLineups] = useState<Record<string, Lineup>>(DefaultRosters)
+  const [customRosterName, setCustomRosterName] = useState<string>("My First Roster")
 
   return (
     <div>
+      {/* Dropdown */}
+      <div>
+        <div>
+        <span className='font-semibold'>Saved Rosters:</span>
+        <select
+          className="mx-2 p-3 rounded-xl bg-slate-700 text-slate-200 min-w-[300px]"
+          onChange={(e) => {
+            const selectedRoster = e.target.value
+            console.log('Selected roster:', selectedRoster)
+            const lineup = rosterLineups[selectedRoster]
+            const newDrafted = lineup.map((roleName) => `draft|${roleName}`)
+            setIsDrafted(newDrafted)
+          }}
+        >
+          {Object.keys(rosterLineups).map((rosterName) => (
+            <option key={rosterName} value={rosterName}>
+              {rosterName}
+            </option>
+          ))}
+        </select>
+        </div>
+          <div className="my-2">
+            <input value={customRosterName} onChange={(e) => setCustomRosterName(e.target.value)} type="text" id="new-roster-name" placeholder="New roster name" className="mx-2 p-2 rounded-xl bg-slate-700 text-slate-200"/>
+            <span onClick={saveRoster} className='select-none font-semibold bg-purple-600 rounded-lg p-3 hover:bg-purple-500 active:bg-purple-800'>Save Current Roster</span>
+          </div>
+      </div>
       <DndContext onDragEnd={handleDragEnd}>
         {/* Roster */}
         <Roster children={drafted} />
@@ -44,7 +73,12 @@ function App() {
             </div>
             <div className="flex flex-wrap justify-center gap-2">
               {roles
-                .filter((role) => role.alignment === 'GOOD')
+                .filter((role) => {
+                  if (role.alignment !== 'GOOD') return false;
+                  if (!hasBeenDrafted('Loyal Servant')) return role.name !== 'Loyal Servant B' && role.name !== 'Loyal Servant C';
+                  if (!hasBeenDrafted('Loyal Servant B')) return role.name !== 'Loyal Servant C';
+                  return true;
+                })
                 .map((role) => {
                   return (
                     <RoleCard
@@ -64,7 +98,12 @@ function App() {
             <div className="text-xl font-bold mb-3">Minions of Mordred</div>
             <div className="flex flex-wrap justify-center gap-2">
               {roles
-                .filter((role) => role.alignment === 'EVIL')
+                .filter((role) => {
+                  if (role.alignment !== 'EVIL') return false;
+                  if (!hasBeenDrafted('Minion')) return role.name !== 'Minion B' && role.name !== 'Minion C';
+                  if (!hasBeenDrafted('Minion B')) return role.name !== 'Minion C';
+                  return true;
+                })
                 .map((role) => {
                   return (
                     <RoleCard
@@ -85,6 +124,19 @@ function App() {
 
   function hasBeenDrafted(roleName: string) {
     return drafted.filter((r) => r.endsWith(roleName)).length > 0
+  }
+
+  function saveRoster() {
+    const lineup: Lineup = drafted.map((d) => {
+      const [, roleName] = d.split('|')
+      return roleName
+    })
+    const newRosters = {
+      ...rosterLineups,
+      [customRosterName]: lineup,
+    }
+    setRosterLineups(newRosters)
+    console.log('Saved roster:', customRosterName, lineup)
   }
 
   function handleDragEnd(event: any) {

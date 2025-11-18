@@ -45,9 +45,11 @@ export function RoleCard(props: RoleCardProps) {
         </div>
       )}
       {props.role.shootable && (
-        <div className="absolute top-11 p-2 bg-orange-800 outline-slate-700 outline-1 rounded-full text-orange-600 font-semibold text-xs">
-          🔫
-        </div>
+        <>
+          <div className="absolute top-11 p-2 bg-orange-800 outline-slate-700 outline-1 rounded-full text-orange-600 font-semibold text-xs">
+            🔫
+          </div>
+        </>
       )}
       <div
         className={`absolute right-1 top-11 p-2 rounded-full text-xs font-bold outline-slate-700 outline-1 w-8 h-8 ${props.role.balance > 0 ? 'bg-green-800' : 'bg-red-800'}`}
