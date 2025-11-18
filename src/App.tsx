@@ -19,28 +19,30 @@ function App() {
   const [rosterLineups, setRosterLineups] =
     useState<Record<string, Lineup>>(DefaultRosters)
   const [customRosterName, setCustomRosterName] =
-    useState<string>('My First Roster')
+    useState<string>('')
   const [activePreset, setActivePreset] = useState<string>(
     Object.keys(rosterLineups)[0] || ''
   )
 
   return (
     <div>
-      {/* Saved Rosters */}
-      <div id="save-load">
-        <RosterRepository
-          activePreset={activePreset}
-          customRosterName={customRosterName}
-          deleteRoster={deleteRoster}
-          rosterLineups={rosterLineups}
-          saveRoster={saveRoster}
-          selectRoster={selectRoster}
-          setCustomRosterName={setCustomRosterName}
-        />
+      <div className="fixed left-5 top-5 z-10 text-shadow-lg text-2xl font-bold font-serif bg-purple-800 p-2 rounded-full">
+        Quest Drafter
       </div>
+
+      {/* Saved Rosters */}
+      <RosterRepository
+        activePreset={activePreset}
+        customRosterName={customRosterName}
+        deleteRoster={deleteRoster}
+        rosterLineups={rosterLineups}
+        saveRoster={saveRoster}
+        selectRoster={selectRoster}
+        setCustomRosterName={setCustomRosterName}
+      />
       <DndContext onDragEnd={handleDragEnd}>
         {/* Roster */}
-        <Roster children={drafted} />
+        <Roster children={drafted} selectedRoster={rosterLineups[activePreset]} />
 
         <label className="inline-flex items-center cursor-pointer">
           <input

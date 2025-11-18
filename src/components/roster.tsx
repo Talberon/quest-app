@@ -2,7 +2,12 @@ import { useDroppable } from '@dnd-kit/core'
 import { Roles, type Role } from '../model/card'
 import { RoleCard } from './role-card'
 
-export function Roster(props: any) {
+interface RosterProps {
+  children: any
+  selectedRoster?: string[]
+}
+
+export function Roster(props: RosterProps) {
   const { isOver, setNodeRef } = useDroppable({
     id: 'roster',
   })
@@ -12,18 +17,28 @@ export function Roster(props: any) {
 
   const draftedRoleNames: string[] =
     props.children.map((roleName: string) => roleName.split('|')[1]) || []
+  draftedRoleNames.sort()
 
   const draftedRoles: Role[] = draftedRoleNames.map((roleName: string) => {
     return Roles[roleName]
   })
 
+  draftedRoles.sort()
+
   const balance = draftedRoleNames.reduce((accum, roleName) => {
     return accum + Roles[roleName].balance
   }, 0)
 
+  const rosterIsModified =
+    (props.selectedRoster?.sort().every((roleName: string, index: number) => {
+      return roleName === draftedRoleNames[index]
+    }) ?? false) === false
+
   return (
     <div>
-      <h2 className="text-2xl font-bold m-2">Roster</h2>
+      <h2 className="text-2xl font-bold m-2">
+        Roster{rosterIsModified && '*'}
+      </h2>
       <div className="rounded bg-slate-800 border-dashed border-slate-400 border-2 min-w-30 min-h-30 mb-2">
         <h2 className="text-xl font-bold m-2">
           Balance:{' '}

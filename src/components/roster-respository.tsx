@@ -20,13 +20,13 @@ export function RosterRepository({
   setCustomRosterName,
 }: RosterRepositoryProps) {
   return (
-    <>
+    <div className="flex gap-1 justify-center content-top">
       <div id="load-roster">
         <div id="select-roster">
-          <span className="font-semibold">Saved Rosters:</span>
+          <span className="font-semibold">Active Roster:</span>
           <select
             value={activePreset}
-            className="mx-2 p-3 rounded-xl bg-slate-700 text-slate-200 min-w-[300px]"
+            className="ml-2 p-2 rounded-l-xl bg-slate-700 text-slate-200 min-w-[300px]"
             onChange={(e) => selectRoster(e.target.value)}
           >
             {Object.keys(rosterLineups).map((rosterName) => (
@@ -37,28 +37,28 @@ export function RosterRepository({
           </select>
           <span
             onClick={deleteRoster}
-            className={`select-none disabled:bg-gray-700 font-semibold rounded-lg p-3 ${activePreset.startsWith('Custom:') ? 'bg-red-600 hover:bg-red-500 active:bg-red-800' : 'bg-gray-600 text-gray-800'}`}
+            className={`select-none disabled:bg-gray-700 font-semibold rounded-r-lg px-3 py-2 ${activePreset.startsWith('Custom:') ? 'bg-red-600 hover:bg-red-500 active:bg-red-800' : 'bg-gray-600 text-gray-800'}`}
           >
-            🗑️ Delete
+            🅧
           </span>
         </div>
       </div>
-      <div className="my-2">
+      <div>
         <input
           value={customRosterName}
           onChange={(e) => setCustomRosterName(e.target.value)}
           type="text"
           id="new-roster-name"
           placeholder="New roster name"
-          className="mx-2 p-2 rounded-xl bg-slate-700 text-slate-200"
+          className="p-1.5 pl-3 rounded-l-xl placeholder:text-gray-100 placeholder:italic bg-slate-900 text-slate-200"
         />
         <span
           onClick={saveRoster}
-          className="select-none font-semibold rounded-lg p-3 bg-purple-600 hover:bg-purple-500 active:bg-purple-800"
+          className="select-none font-semibold rounded-r-lg p-2 bg-purple-600 hover:bg-purple-500 active:bg-purple-800"
         >
           Save Current Roster
         </span>
       </div>
-    </>
+    </div>
   )
 }
