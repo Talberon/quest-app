@@ -67,13 +67,18 @@ function App() {
               {roles
                 .filter((role) => {
                   if (role.alignment !== 'GOOD') return false
-                  if (!hasBeenDrafted('Loyal Servant'))
-                    return (
-                      role.name !== 'Loyal Servant B' &&
-                      role.name !== 'Loyal Servant C'
-                    )
-                  if (!hasBeenDrafted('Loyal Servant B'))
-                    return role.name !== 'Loyal Servant C'
+
+                  if (!hasBeenDrafted('Loyal Servant')) {
+                    if (role.name === 'Loyal Servant B') return false
+                    if (role.name === 'Loyal Servant C') return false
+                  }
+                  if (!hasBeenDrafted('Loyal Servant B')) {
+                    if (role.name === 'Loyal Servant C') return false
+                  }
+                  if (!hasBeenDrafted('RNG Good')) {
+                    if (role.name === 'RNG Good B') return false
+                  }
+
                   return true
                 })
                 .map((role) => {
