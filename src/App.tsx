@@ -6,6 +6,7 @@ import { Roster } from './components/roster'
 import { RosterRepository } from './components/roster-respository'
 import { type Role, Roles } from './model/card'
 import { DefaultRosters, type Lineup } from './model/rosters'
+import { generateRoster } from './lib/generate-roster'
 
 function App() {
   const roles = Object.values(Roles) //.filter((role) => role.balance === 0)
@@ -40,8 +41,10 @@ function App() {
           saveRoster={saveRoster}
           selectRoster={selectRoster}
           setCustomRosterName={setCustomRosterName}
+          generateRoster={generateAndSetRoster}
         />
       </div>
+      
       <DndContext
         onDragEnd={handleDragEnd}
         onDragStart={({ active }) => setActiveId(active.id.toString())}
@@ -187,6 +190,13 @@ function App() {
     const lineup = rosterLineups[selectedRoster]
     const newDrafted = lineup.map((roleName) => `draft|${roleName}`)
     setActivePreset(selectedRoster)
+    setIsDrafted(newDrafted)
+  }
+
+  function generateAndSetRoster(numPlayers: number){
+    const generatedRoster = generateRoster(numPlayers)
+    console.log('Generated roster:', generatedRoster)
+    const newDrafted = generatedRoster.map((roleName) => `draft|${roleName}`)
     setIsDrafted(newDrafted)
   }
 

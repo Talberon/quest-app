@@ -9,6 +9,7 @@ interface RosterRepositoryProps {
   saveRoster: () => void
   selectRoster: (selectedRoster: string) => void
   setCustomRosterName: React.Dispatch<React.SetStateAction<string>>
+  generateRoster: (numPlayers: number) => void
 }
 
 export function RosterRepository({
@@ -19,6 +20,7 @@ export function RosterRepository({
   saveRoster,
   selectRoster,
   setCustomRosterName,
+  generateRoster
 }: RosterRepositoryProps) {
   return (
     <div className="flex flex-wrap gap-1 justify-center content-top">
@@ -65,6 +67,19 @@ export function RosterRepository({
         >
           Save Current Roster
         </span>
+      </div>
+
+      <div className="bg-slate-800 rounded-lg">
+        <span>Generate Lineup:</span>{' '}
+        {[4, 5, 6, 7, 8, 9, 10, 11, 12].map((numPlayers) => (
+          <span
+            key={numPlayers}
+            className="mx-1 px-2 py-1 select-none bg-slate-700 rounded hover:bg-slate-600 active:bg-slate-800 cursor-pointer"
+            onClick={() => generateRoster(numPlayers)}
+          >
+            {numPlayers}
+          </span>
+        ))}
       </div>
     </div>
   )

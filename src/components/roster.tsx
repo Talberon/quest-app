@@ -30,24 +30,23 @@ export function Roster(props: RosterProps) {
     return accum + Roles[roleName].balance
   }, 0)
 
-  const rosterIsModified =
+  const rosterIsModified = props.selectedRoster?.length !== draftedRoleNames.length ||
     (props.selectedRoster?.sort().every((roleName: string, index: number) => {
       return roleName === draftedRoleNames[index]
     }) ?? false) === false
 
-
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(window.innerWidth)
 
   useEffect(() => {
     function handleResize() {
-      setWidth(window.innerWidth);
+      setWidth(window.innerWidth)
     }
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
-  const showDescription = width >= 768;
+  const showDescription = width >= 768
 
   return (
     <div>
