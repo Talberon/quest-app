@@ -1,6 +1,7 @@
 import { useDroppable } from '@dnd-kit/core'
 import { Roles, type Role } from '../model/card'
 import { RoleCard } from './role-card'
+import { useEffect, useState } from 'react'
 
 interface RosterProps {
   children: any
@@ -33,6 +34,20 @@ export function Roster(props: RosterProps) {
     (props.selectedRoster?.sort().every((roleName: string, index: number) => {
       return roleName === draftedRoleNames[index]
     }) ?? false) === false
+
+
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function handleResize() {
+      setWidth(window.innerWidth);
+    }
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const showDescription = width >= 768;
 
   return (
     <div>
@@ -78,7 +93,7 @@ export function Roster(props: RosterProps) {
                   zone="roster"
                   key={role.name}
                   role={role}
-                  showDescription={true}
+                  showDescription={showDescription}
                   hasBeenDrafted={false}
                 />
               )

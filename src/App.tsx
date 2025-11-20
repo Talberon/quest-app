@@ -1,15 +1,16 @@
-import './App.css'
-import { Roles } from './model/card'
-import { RoleCard } from './components/role-card'
-import { DndContext } from '@dnd-kit/core'
-import { Roster } from './components/roster'
+import { DndContext, DragOverlay } from '@dnd-kit/core'
 import { useState } from 'react'
-import { DefaultRosters, type Lineup } from './model/rosters'
+import './App.css'
+import { RoleCard } from './components/role-card'
+import { Roster } from './components/roster'
 import { RosterRepository } from './components/roster-respository'
+import { type Role, Roles } from './model/card'
+import { DefaultRosters, type Lineup } from './model/rosters'
 
 function App() {
   const roles = Object.values(Roles) //.filter((role) => role.balance === 0)
 
+  const [activeId, setActiveId] = useState<string | null>(null)
   const [drafted, setIsDrafted] = useState<string[]>([
     'draft|Cleric',
     'draft|Morgan le Fay',
@@ -18,31 +19,39 @@ function App() {
   const [showDescriptions, setShowDescriptions] = useState<boolean>(false)
   const [rosterLineups, setRosterLineups] =
     useState<Record<string, Lineup>>(DefaultRosters)
-  const [customRosterName, setCustomRosterName] =
-    useState<string>('')
+  const [customRosterName, setCustomRosterName] = useState<string>('')
   const [activePreset, setActivePreset] = useState<string>(
     Object.keys(rosterLineups)[0] || ''
   )
 
   return (
     <div>
-      <div className="fixed left-5 top-5 z-10 text-shadow-lg text-2xl font-bold font-serif bg-purple-800 p-2 rounded-full">
-        Quest Drafter
-      </div>
+      <div className="sticky top-1 z-10 bg-slate-800 rounded-2xl p-2 shadow-gray-900">
+        <div className="z-10 mb-3 text-shadow-lg text-2xl font-bold font-serif bg-purple-800 p-2 rounded-full">
+          Quest Drafter
+        </div>
 
-      {/* Saved Rosters */}
-      <RosterRepository
-        activePreset={activePreset}
-        customRosterName={customRosterName}
-        deleteRoster={deleteRoster}
-        rosterLineups={rosterLineups}
-        saveRoster={saveRoster}
-        selectRoster={selectRoster}
-        setCustomRosterName={setCustomRosterName}
-      />
-      <DndContext onDragEnd={handleDragEnd}>
+        {/* Saved Rosters */}
+        <RosterRepository
+          activePreset={activePreset}
+          customRosterName={customRosterName}
+          deleteRoster={deleteRoster}
+          rosterLineups={rosterLineups}
+          saveRoster={saveRoster}
+          selectRoster={selectRoster}
+          setCustomRosterName={setCustomRosterName}
+        />
+      </div>
+      <DndContext
+        onDragEnd={handleDragEnd}
+        onDragStart={({ active }) => setActiveId(active.id.toString())}
+        onDragCancel={() => setActiveId(null)}
+      >
         {/* Roster */}
-        <Roster children={drafted} selectedRoster={rosterLineups[activePreset]} />
+        <Roster
+          children={drafted}
+          selectedRoster={rosterLineups[activePreset]}
+        />
 
         <label className="inline-flex items-center cursor-pointer">
           <input
@@ -59,13 +68,13 @@ function App() {
           </span>
         </label>
 
-        {/* Loyal Servants Pool */}
-        <div className="grid grid-cols-2">
+        <div className="flex select-none z-5">
+          {/* Loyal Servants Pool */}
           <div className="bg-teal-950 rounded-2xl p-2">
             <div className="text-xl font-bold mb-3">
               Loyal Servants of Arthur
             </div>
-            <div className="flex flex-wrap justify-center gap-2">
+            <div className="flex flex-wrap justify-center gap-2 max-h-100 overflow-auto">
               {roles
                 .filter((role) => {
                   if (role.alignment !== 'GOOD') return false
@@ -98,9 +107,9 @@ function App() {
           </div>
 
           {/* Minions Pool */}
-          <div className="bg-amber-950 rounded-2xl p-2">
+          <div className="bg-amber-950 rounded-2xl p-2 select-none">
             <div className="text-xl font-bold mb-3">Minions of Mordred</div>
-            <div className="flex flex-wrap justify-center gap-2">
+            <div className="flex flex-wrap justify-center gap-2 max-h-100 overflow-auto">
               {roles
                 .filter((role) => {
                   if (role.alignment !== 'EVIL') return false
@@ -124,6 +133,18 @@ function App() {
             </div>
           </div>
         </div>
+
+        {/* 👇 This is what lets the dragged item escape overflow boundaries */}
+        <DragOverlay>
+          {activeId ? (
+            <RoleCard
+              role={roleForId(activeId)}
+              zone="draft"
+              showDescription={showDescriptions}
+              hasBeenDrafted={false}
+            />
+          ) : null}
+        </DragOverlay>
       </DndContext>
     </div>
   )
@@ -169,7 +190,16 @@ function App() {
     setIsDrafted(newDrafted)
   }
 
+  function roleForId(cardId: string): Role {
+    const [_, role] = cardId.split('|')
+    return roleForName(role)
+  }
+  function roleForName(name: string): Role {
+    return Roles[name]
+  }
+
   function handleDragEnd(event: any) {
+    setActiveId(null)
     const cardId = event.active.id
     const dropZone = event.over?.id || 'none'
     const [zone, role, ...etc] = cardId.split('|')

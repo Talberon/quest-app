@@ -21,13 +21,13 @@ export function RosterRepository({
   setCustomRosterName,
 }: RosterRepositoryProps) {
   return (
-    <div className="flex gap-1 justify-center content-top">
-      <div id="load-roster">
+    <div className="flex flex-wrap gap-1 justify-center content-top">
+      <div id="load-roster" className='md:flex-1 flex-nowrap text-nowrap'>
         <div id="select-roster">
           <span className="font-semibold">Roster:</span>
           <select
             value={activePreset}
-            className="ml-2 p-2 rounded-l-xl bg-slate-700 text-slate-200 min-w-[300px]"
+            className="ml-2 p-2 rounded-l-xl bg-slate-700 text-slate-200 min-w-[50px]"
             onChange={(e) => selectRoster(e.target.value)}
           >
             {Object.keys(rosterLineups).map((rosterName) => (
@@ -50,7 +50,7 @@ export function RosterRepository({
           </span>
         </div>
       </div>
-      <div>
+      <div className='md:flex-1 flex-nowrap text-nowrap'>
         <input
           value={customRosterName}
           onChange={(e) => setCustomRosterName(e.target.value)}
