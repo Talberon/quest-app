@@ -52,7 +52,7 @@ export function Roster(props: RosterProps) {
   return (
     <div>
       <h2 className="text-2xl font-bold">Roster{rosterIsModified && '*'}</h2>
-      <div className="rounded bg-slate-800 border-dashed border-slate-400 border-2 min-w-30 min-h-30 mb-2 p-2">
+      <div className="select-none rounded bg-slate-800 border-dashed border-slate-400 border-2 min-w-30 min-h-30 mb-2 p-2">
         <div className="flex flex-wrap gap-3 mb-3">
           <span className="grow text-xl font-bold">
             ⚖️ Balance:{' '}
