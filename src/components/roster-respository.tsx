@@ -70,7 +70,7 @@ export function RosterRepository({
       </div>
 
       <div className="bg-slate-800 rounded-lg my-1">
-        <span className='font-semibold'>Generate Lineup:</span>{' '}
+        <span className='font-semibold select-none'>Generate Lineup:</span>{' '}
         {[4, 5, 6, 7, 8, 9, 10, 11].map((numPlayers) => (
           <span
             key={numPlayers}

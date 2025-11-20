@@ -39,7 +39,7 @@ export function RoleCard(props: RoleCardProps) {
       <h2 className="text-md md:text-lg font-bold text-slate-300">
         {props.role.displayName}
       </h2>
-      <div className="md:text-5xl text-xl">{props.role.image}</div>
+      <div className="md:text-5xl text-xl text-shadow-lg rounded-full mx-8">{props.role.image}</div>
       {props.showDescription && (
         <div className="flex grow justify-center bg-slate-800 opacity-40 rounded p-2 m-1">
           <p className="align-middle self-center opacity-100 text-slate-200">
