@@ -26,7 +26,7 @@ function App() {
   )
 
   return (
-    <div>
+    <div className=''>
       <div className="sticky top-1 z-10 bg-slate-800 rounded-2xl p-2 shadow-gray-900">
         <div className="z-10 mb-3 text-shadow-lg text-2xl font-bold font-serif bg-purple-800 p-2 rounded-full">
           Quest Drafter
@@ -44,7 +44,7 @@ function App() {
           generateRoster={generateAndSetRoster}
         />
       </div>
-      
+
       <DndContext
         onDragEnd={handleDragEnd}
         onDragStart={({ active }) => setActiveId(active.id.toString())}
@@ -71,9 +71,9 @@ function App() {
           </span>
         </label>
 
-        <div className="flex select-none z-5">
+        <div className="flex z-5">
           {/* Loyal Servants Pool */}
-          <div className="bg-teal-950 rounded-2xl p-2">
+          <div className="bg-teal-950 rounded-2xl p-2 select-none">
             <div className="text-xl font-bold mb-3">
               Loyal Servants of Arthur
             </div>
@@ -83,14 +83,14 @@ function App() {
                   if (role.alignment !== 'GOOD') return false
 
                   if (!hasBeenDrafted('Loyal Servant')) {
-                    if (role.name === 'Loyal Servant B') return false
-                    if (role.name === 'Loyal Servant C') return false
+                    if (role.id === 'Loyal Servant B') return false
+                    if (role.id === 'Loyal Servant C') return false
                   }
                   if (!hasBeenDrafted('Loyal Servant B')) {
-                    if (role.name === 'Loyal Servant C') return false
+                    if (role.id === 'Loyal Servant C') return false
                   }
                   if (!hasBeenDrafted('RNG Good')) {
-                    if (role.name === 'RNG Good B') return false
+                    if (role.id === 'RNG Good B') return false
                   }
 
                   return true
@@ -98,11 +98,11 @@ function App() {
                 .map((role) => {
                   return (
                     <RoleCard
-                      key={role.name}
+                      key={role.id}
                       role={role}
                       zone="draft"
                       showDescription={showDescriptions}
-                      hasBeenDrafted={hasBeenDrafted(role.name)}
+                      hasBeenDrafted={hasBeenDrafted(role.id)}
                     />
                   )
                 })}
@@ -117,19 +117,19 @@ function App() {
                 .filter((role) => {
                   if (role.alignment !== 'EVIL') return false
                   if (!hasBeenDrafted('Minion'))
-                    return role.name !== 'Minion B' && role.name !== 'Minion C'
+                    return role.id !== 'Minion B' && role.id !== 'Minion C'
                   if (!hasBeenDrafted('Minion B'))
-                    return role.name !== 'Minion C'
+                    return role.id !== 'Minion C'
                   return true
                 })
                 .map((role) => {
                   return (
                     <RoleCard
-                      key={role.name}
+                      key={role.id}
                       role={role}
                       zone="draft"
                       showDescription={showDescriptions}
-                      hasBeenDrafted={hasBeenDrafted(role.name)}
+                      hasBeenDrafted={hasBeenDrafted(role.id)}
                     />
                   )
                 })}

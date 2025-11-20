@@ -23,10 +23,10 @@ export function RosterRepository({
   generateRoster
 }: RosterRepositoryProps) {
   return (
-    <div className="flex flex-wrap gap-1 justify-center content-top">
+    <div className="flex flex-wrap gap-1 justify-center content-baseline">
       <div id="load-roster" className='md:flex-1 flex-nowrap text-nowrap'>
         <div id="select-roster">
-          <span className="font-semibold">Roster:</span>
+          <span className="font-semibold">Preset:</span>
           <select
             value={activePreset}
             className="ml-2 p-2 rounded-l-xl bg-slate-700 text-slate-200 min-w-[50px]"
@@ -69,12 +69,12 @@ export function RosterRepository({
         </span>
       </div>
 
-      <div className="bg-slate-800 rounded-lg">
-        <span>Generate Lineup:</span>{' '}
-        {[4, 5, 6, 7, 8, 9, 10, 11, 12].map((numPlayers) => (
+      <div className="bg-slate-800 rounded-lg my-1">
+        <span className='font-semibold'>Generate Lineup:</span>{' '}
+        {[4, 5, 6, 7, 8, 9, 10, 11].map((numPlayers) => (
           <span
             key={numPlayers}
-            className="mx-1 px-2 py-1 select-none bg-slate-700 rounded hover:bg-slate-600 active:bg-slate-800 cursor-pointer"
+            className="mx-1 px-3 py-2 select-none bg-slate-700 rounded hover:bg-slate-600 active:bg-slate-800 cursor-pointer"
             onClick={() => generateRoster(numPlayers)}
           >
             {numPlayers}

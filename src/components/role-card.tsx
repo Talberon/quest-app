@@ -11,7 +11,7 @@ interface RoleCardProps {
 
 export function RoleCard(props: RoleCardProps) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: `${props.zone}|${props.role.name}`,
+    id: `${props.zone}|${props.role.id}`,
   })
   const style = transform
     ? {
@@ -37,7 +37,7 @@ export function RoleCard(props: RoleCardProps) {
       className={`touch-none flex flex-col relative select-none w-30 md:w-40 max-h-70 rounded text-slate-400 p-2 ${cardColor}`}
     >
       <h2 className="text-md md:text-lg font-bold text-slate-300">
-        {props.role.name}
+        {props.role.displayName}
       </h2>
       <div className="md:text-5xl text-xl">{props.role.image}</div>
       {props.showDescription && (

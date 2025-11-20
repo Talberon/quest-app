@@ -30,7 +30,8 @@ export function Roster(props: RosterProps) {
     return accum + Roles[roleName].balance
   }, 0)
 
-  const rosterIsModified = props.selectedRoster?.length !== draftedRoleNames.length ||
+  const rosterIsModified =
+    props.selectedRoster?.length !== draftedRoleNames.length ||
     (props.selectedRoster?.sort().every((roleName: string, index: number) => {
       return roleName === draftedRoleNames[index]
     }) ?? false) === false
@@ -67,14 +68,62 @@ export function Roster(props: RosterProps) {
               ? '(Equal)'
               : '(Evil-favoured)'}
         </h2>
-        <h3 className="text-sm font-bold">
-          Players: {draftedRoles.length}{' '}
+        <h3 className="grid grid-cols-3 text-lg font-bold">
+          {/* Good Meta Info */}
+          <span className="flex gap-2 justify-center">
+            <span className="bg-teal-800 rounded-full py-1 px-3">
+              🙋 Corrections:{' '}
+              {draftedRoles.reduce(
+                (prev, curr) => (prev += curr.correction),
+                0
+              )}
+            </span>
+            <span className="bg-teal-800 rounded-full py-1 px-3">
+              🔎 Info:{' '}
+              {draftedRoles.reduce(
+                (prev, curr) =>
+                  (prev += curr.alignment === 'GOOD' ? curr.information : 0),
+                0
+              )}
+            </span>
+            <span className="bg-teal-800 rounded-full py-1 px-3">
+              ⚖️ Balance:{' '}
+              {draftedRoles.reduce(
+                (prev, curr) =>
+                  (prev += curr.alignment === 'GOOD' ? curr.balance : 0),
+                0
+              )}
+            </span>
+          </span>
+          {/* Shared Meta Info */}
           <span>
-            {draftedRoles
-              .sort((a, b) => a.balance - b.balance)
-              .sort((role) => (role.alignment === 'GOOD' ? -1 : 1))
-              .map((role) => role.image)
-              .join('')}
+            Players ({draftedRoles.length}):{' '}
+            <span>
+              {draftedRoles
+                .sort((a, b) => a.balance - b.balance)
+                .sort((role) => (role.alignment === 'GOOD' ? -1 : 1))
+                .map((role) => role.image)
+                .join('')}
+            </span>
+          </span>
+          {/* Evil Meta Info */}
+          <span className="flex gap-2 justify-center">
+            <span className="bg-amber-800 rounded-full py-1 px-3">
+              👁️ Info:{' '}
+              {draftedRoles.reduce(
+                (prev, curr) =>
+                  (prev += curr.alignment === 'EVIL' ? 0 : curr.information),
+                0
+              )}
+            </span>
+            <span className="bg-amber-800 rounded-full py-1 px-3">
+              ⚖️ Balance:{' '}
+              {draftedRoles.reduce(
+                (prev, curr) =>
+                  (prev += curr.alignment === 'EVIL' ? curr.balance : 0),
+                0
+              )}
+            </span>
           </span>
         </h3>
 
@@ -90,7 +139,7 @@ export function Roster(props: RosterProps) {
               return (
                 <RoleCard
                   zone="roster"
-                  key={role.name}
+                  key={role.id}
                   role={role}
                   showDescription={showDescription}
                   hasBeenDrafted={false}
