@@ -11,6 +11,7 @@ import { generateRoster } from './lib/generate-roster'
 function App() {
   const roles = Object.values(Roles) //.filter((role) => role.balance === 0)
 
+
   const [activeId, setActiveId] = useState<string | null>(null)
   const [drafted, setIsDrafted] = useState<string[]>([
     'draft|Cleric',
@@ -18,8 +19,11 @@ function App() {
     'draft|Blind Hunter',
   ])
   const [showDescriptions, setShowDescriptions] = useState<boolean>(false)
-  const [rosterLineups, setRosterLineups] =
-    useState<Record<string, Lineup>>(DefaultRosters)
+  
+
+  const savedRosters = localStorage.getItem('savedRosters') ? JSON.parse(localStorage.getItem('savedRosters')!) : DefaultRosters
+  const [rosterLineups, setRosterLineups] = useState<Record<string, Lineup>>(savedRosters)
+
   const [customRosterName, setCustomRosterName] = useState<string>('')
   const [activePreset, setActivePreset] = useState<string>(
     Object.keys(rosterLineups)[0] || ''
@@ -169,6 +173,8 @@ function App() {
     }
     setRosterLineups(newRosters)
     setActivePreset(customRosterKey)
+
+    localStorage.setItem('savedRosters', JSON.stringify(newRosters))
     console.log('Saved roster:', customRosterName, lineup)
   }
 

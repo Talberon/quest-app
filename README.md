@@ -80,4 +80,9 @@ export default defineConfig([
 - [x] A "predicted winner" that can be compared to the actual result for analysis
 - [x] Provide brief info on how much information a lineup has for each faction
 - [ ] A method of reporting the result of who won with a particular lineup
-- [ ] The ability to store these lineups somewhere so we can retrieve them (maybe local storage, link with roster encoded, or dynamodb or something)
+- [ ] The ability to store these lineups somewhere so we can retrieve them 
+  - [x] Local Storage
+  - [ ] Database
+- [ ] The ability to share lineups with others
+  - [ ] Encoded url
+  - [ ] Save code
