@@ -31,7 +31,7 @@ function App() {
 
   return (
     <div className=''>
-      <div className="sticky top-1 z-10 bg-slate-800 rounded-2xl py-2 shadow-gray-900">
+      <div className="sticky top-1 z-10 bg-slate-800 rounded-4xl p-2 shadow-gray-900">
         <div className="z-10 mb-3 text-shadow-lg text-2xl font-bold font-serif bg-purple-800 p-2 rounded-full">
           Quest Drafter
         </div>
@@ -75,7 +75,7 @@ function App() {
           </span>
         </label>
 
-        <div className="flex z-5">
+        <div className="flex gap-2 z-5">
           {/* Loyal Servants Pool */}
           <div className="bg-teal-950 rounded-2xl p-2 select-none">
             <div className="text-xl font-bold mb-3">

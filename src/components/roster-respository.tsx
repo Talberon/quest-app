@@ -56,14 +56,15 @@ export function RosterRepository({
         <input
           value={customRosterName}
           onChange={(e) => setCustomRosterName(e.target.value)}
+          maxLength={20}
           type="text"
           id="new-roster-name"
           placeholder="New roster name"
           className="p-1.5 pl-3 rounded-l-xl placeholder:text-gray-100 placeholder:italic bg-slate-900 text-slate-200"
         />
         <span
-          onClick={saveRoster}
-          className="select-none font-semibold rounded-r-lg p-2 bg-purple-600 hover:bg-purple-500 active:bg-purple-800"
+          onClick={_ => customRosterName && saveRoster()}
+          className={`${!customRosterName ? 'disabled text-gray-800 bg-gray-600' : 'bg-purple-600 hover:bg-purple-500 active:bg-purple-800'} select-none font-semibold rounded-r-lg p-2 `}
         >
           Save Current Roster
         </span>
