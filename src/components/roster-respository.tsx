@@ -70,12 +70,12 @@ export function RosterRepository({
         </span>
       </div>
 
-      <div className="bg-slate-800 rounded-lg my-1">
+      <div className="bg-indigo-900 shadow-2xl rounded-full p-3">
         <span className='font-semibold select-none'>Generate Lineup:</span>{' '}
         {[4, 5, 6, 7, 8, 9, 10, 11].map((numPlayers) => (
           <span
             key={numPlayers}
-            className="mx-1 px-3 py-2 select-none bg-slate-700 rounded hover:bg-slate-600 active:bg-slate-800 cursor-pointer"
+            className={`mx-1 px-3 py-2 select-none ${numPlayers % 2 == 0 ? 'bg-teal-700 hover:bg-teal-600 active:bg-teal-800': 'bg-amber-700 hover:bg-amber-600 active:bg-amber-800'} rounded-full cursor-pointer`}
             onClick={() => generateRoster(numPlayers)}
           >
             {numPlayers}
