@@ -73,11 +73,11 @@ export default defineConfig([
 ```
 
 
-## What we intend to build
+## Roadmap
 
 - [x] A visual drag-and-drop draft lineup designer for arbitrary numbers of players
-- [ ] The ability to store these lineups somewhere so we can retrieve them (maybe sqlite or dynamodb or something)
-- [ ] A method of reporting the result of who won with a particular lineup
-- [ ] A "pick for me" option that takes a number of players and provides the appropriate lineup
+- [x] A "pick for me" option that takes a number of players and provides the appropriate lineup
 - [x] A "predicted winner" that can be compared to the actual result for analysis
-- [ ] Provide brief info on how much information a lineup has for each faction
+- [x] Provide brief info on how much information a lineup has for each faction
+- [ ] A method of reporting the result of who won with a particular lineup
+- [ ] The ability to store these lineups somewhere so we can retrieve them (maybe local storage, link with roster encoded, or dynamodb or something)

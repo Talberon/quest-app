@@ -77,7 +77,7 @@ function App() {
             <div className="text-xl font-bold mb-3">
               Loyal Servants of Arthur
             </div>
-            <div className="flex flex-wrap justify-center gap-2 max-h-100 overflow-auto">
+            <div className="flex flex-wrap justify-center gap-2 p-2 max-h-100 overflow-auto">
               {roles
                 .filter((role) => {
                   if (role.alignment !== 'GOOD') return false
@@ -112,7 +112,7 @@ function App() {
           {/* Minions Pool */}
           <div className="bg-amber-950 rounded-2xl p-2 select-none">
             <div className="text-xl font-bold mb-3">Minions of Mordred</div>
-            <div className="flex flex-wrap justify-center gap-2 max-h-100 overflow-auto">
+            <div className="flex flex-wrap justify-center gap-2 p-2 max-h-100 overflow-auto">
               {roles
                 .filter((role) => {
                   if (role.alignment !== 'EVIL') return false
@@ -149,6 +149,7 @@ function App() {
           ) : null}
         </DragOverlay>
       </DndContext>
+      <div className='py-2'>Unofficial fan tool for Quest/Avalon Big Box. <a href="https://indieboardsandcards.com/our-games/avalon-big-box/">Support the original devs</a>.</div>
     </div>
   )
 
