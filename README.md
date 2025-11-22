@@ -1,4 +1,10 @@
-# React + TypeScript + Vite
+# Quest App
+
+This app is a handy tool for coming up with rosters for the board game Quest. You can create various loadouts, get some insight into the balance of a particular loadout, and generate randomized loadouts for quick setups.
+
+Access the site on [GitHub Pages](https://talberon.github.io/quest-app/).
+
+## React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
