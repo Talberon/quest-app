@@ -4,25 +4,25 @@ import './App.css'
 import { RoleCard } from './components/role-card'
 import { Roster } from './components/roster'
 import { RosterRepository } from './components/roster-respository'
-import { type Role, Roles } from './model/card'
-import { DefaultRosters, type Lineup } from './model/rosters'
 import { generateRoster } from './lib/generate-roster'
+import { type Role, Roles } from './model/roles'
+import { DefaultRosters } from './model/rosters'
+import { getRosterFromQueryString } from './lib/role-utils'
 
 function App() {
   const roles = Object.values(Roles) //.filter((role) => role.balance === 0)
 
-
   const [activeId, setActiveId] = useState<string | null>(null)
-  const [drafted, setIsDrafted] = useState<string[]>([
-    'draft|Cleric',
-    'draft|Morgan le Fay',
-    'draft|Blind Hunter',
-  ])
+  const [drafted, setIsDrafted] = useState<string[]>(
+    getRosterFromQueryString().map((role) => `draft|${role.id}`)
+  )
   const [showDescriptions, setShowDescriptions] = useState<boolean>(false)
-  
 
-  const savedRosters = localStorage.getItem('savedRosters') ? JSON.parse(localStorage.getItem('savedRosters')!) : DefaultRosters
-  const [rosterLineups, setRosterLineups] = useState<Record<string, Lineup>>(savedRosters)
+  const savedRosters = localStorage.getItem('savedRosters')
+    ? JSON.parse(localStorage.getItem('savedRosters')!)
+    : DefaultRosters
+  const [rosterLineups, setRosterLineups] =
+    useState<Record<string, string[]>>(savedRosters)
 
   const [customRosterName, setCustomRosterName] = useState<string>('')
   const [activePreset, setActivePreset] = useState<string>(
@@ -30,10 +30,10 @@ function App() {
   )
 
   return (
-    <div className=''>
+    <div className="">
       <div className="sticky top-1 z-10 bg-amber-900 rounded-4xl p-2 shadow-gray-900">
         <div className="z-10 mb-3 text-indigo-950 text-shadow-lg text-2xl font-bold bg-amber-700 p-2 rounded-full">
-          <span className='font-serif text-3xl italic'>Quest</span> Drafter
+          <span className="font-serif text-3xl italic">Quest</span> Drafter
         </div>
 
         {/* Saved Rosters */}
@@ -122,8 +122,7 @@ function App() {
                   if (role.alignment !== 'EVIL') return false
                   if (!hasBeenDrafted('Minion'))
                     return role.id !== 'Minion B' && role.id !== 'Minion C'
-                  if (!hasBeenDrafted('Minion B'))
-                    return role.id !== 'Minion C'
+                  if (!hasBeenDrafted('Minion B')) return role.id !== 'Minion C'
                   return true
                 })
                 .map((role) => {
@@ -153,7 +152,13 @@ function App() {
           ) : null}
         </DragOverlay>
       </DndContext>
-      <div className='py-2'>Unofficial fan tool for Quest/Avalon Big Box. <a href="https://indieboardsandcards.com/our-games/avalon-big-box/">Support the original devs</a>.</div>
+      <div className="py-2">
+        Unofficial fan tool for Quest/Avalon Big Box.{' '}
+        <a href="https://indieboardsandcards.com/our-games/avalon-big-box/">
+          Support the original devs
+        </a>
+        .
+      </div>
     </div>
   )
 
@@ -162,7 +167,7 @@ function App() {
   }
 
   function saveRoster() {
-    const lineup: Lineup = drafted.map((d) => {
+    const lineup: string[] = drafted.map((d) => {
       const [, roleName] = d.split('|')
       return roleName
     })
@@ -197,14 +202,14 @@ function App() {
     const lineup = rosterLineups[selectedRoster]
     const newDrafted = lineup.map((roleName) => `draft|${roleName}`)
     setActivePreset(selectedRoster)
-    setIsDrafted(newDrafted)
+    setRoster(newDrafted)
   }
 
-  function generateAndSetRoster(numPlayers: number){
+  function generateAndSetRoster(numPlayers: number) {
     const generatedRoster = generateRoster(numPlayers)
     console.log('Generated roster:', generatedRoster)
     const newDrafted = generatedRoster.map((roleName) => `draft|${roleName}`)
-    setIsDrafted(newDrafted)
+    setRoster(newDrafted)
   }
 
   function roleForId(cardId: string): Role {
@@ -234,15 +239,28 @@ function App() {
     // Add card to Roster
     if (event.over && event.over.id === 'roster' && zone !== 'roster') {
       console.log('Dragged into roster', role)
-      setIsDrafted([...new Set([...drafted, cardId])])
+      setRoster([...new Set([...drafted, cardId])])
     }
 
     // Remove card from Roster
     if ((zone === 'roster' && !event.over) || event.over?.id !== 'roster') {
       console.log('Dragged out of roster, removing', role)
       const newDrafted = drafted.filter((r) => r.endsWith(role) === false)
-      setIsDrafted(newDrafted)
+      setRoster(newDrafted)
     }
+  }
+
+  function setRoster(draftedRoles: string[]) {
+    // Get the current URL
+    const currentUrl = new URL(window.location.href)
+    currentUrl.searchParams.set('roster', 'TEST') // Adds 'paramName=paramValue' or updates its value if it already exists
+
+    const newUrl = currentUrl.toString()
+    //Update query params
+    window.history.pushState({}, '', newUrl)
+
+    //Set state
+    setIsDrafted(draftedRoles)
   }
 }
 

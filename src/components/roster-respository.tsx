@@ -1,4 +1,4 @@
-import { Roles } from '../model/card'
+import { Roles } from '../model/roles'
 import type { Lineup } from '../model/rosters'
 
 interface RosterRepositoryProps {

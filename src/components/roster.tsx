@@ -1,5 +1,5 @@
 import { useDroppable } from '@dnd-kit/core'
-import { Roles, type Role } from '../model/card'
+import { Roles, type Role } from '../model/roles'
 import { RoleCard } from './role-card'
 import { useEffect, useState } from 'react'
 

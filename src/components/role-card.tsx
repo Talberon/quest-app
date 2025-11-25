@@ -1,5 +1,5 @@
 import { useDraggable } from '@dnd-kit/core'
-import type { Role } from '../model/card'
+import type { Role } from '../model/roles'
 import { CSS } from '@dnd-kit/utilities'
 
 interface RoleCardProps {

@@ -1,6 +1,4 @@
-export type Lineup = string[]
-
-export const DefaultRosters: Record<string, Lineup> = {
+export const DefaultRosters: Record<string, string[]> = {
     "Blank Slate": ["Morgan le Fay", "Blind Hunter", "Cleric"],
     "DX: 4P": ["RNG Good", "RNG Good B", "Morgan le Fay", "Blind Hunter"],
     "DX: 5P": ["RNG Good", "RNG Good B", "Morgan le Fay", "Blind Hunter", "Minion"],

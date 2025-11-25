@@ -1,4 +1,4 @@
-import { Roles } from '../model/card'
+import { Roles } from '../model/roles'
 import { shuffle } from './randomize'
 
 export function generateRoster(numPlayers: number): string[] {

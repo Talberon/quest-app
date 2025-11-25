@@ -359,4 +359,17 @@ export const Roles: Record<string, Role> = {
     alignment: 'EVIL',
     description: "We don't talk about the Mutineer.",
   },
+  UNKNOWN: {
+    id: 'UNKNOWN',
+    displayName: 'INVALID ROLE',
+    image: '❌',
+    minPlayers: 0,
+    maxPlayers: 0,
+    balance: -100,
+    information: -1,
+    correction: -1,
+    shootable: false,
+    alignment: 'EVIL',
+    description: `Could not determine the role.`,
+  },
 }
