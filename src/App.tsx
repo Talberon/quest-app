@@ -5,9 +5,12 @@ import { RoleCard } from './components/role-card'
 import { Roster } from './components/roster'
 import { RosterRepository } from './components/roster-respository'
 import { generateRoster } from './lib/generate-roster'
+import {
+  encodeCommaSeparatedRosterToBase64,
+  getRosterFromQueryString,
+} from './lib/role-utils'
 import { type Role, Roles } from './model/roles'
 import { DefaultRosters } from './model/rosters'
-import { getRosterFromQueryString } from './lib/role-utils'
 
 function App() {
   const roles = Object.values(Roles) //.filter((role) => role.balance === 0)
@@ -253,7 +256,15 @@ function App() {
   function setRoster(draftedRoles: string[]) {
     // Get the current URL
     const currentUrl = new URL(window.location.href)
-    currentUrl.searchParams.set('roster', 'TEST') // Adds 'paramName=paramValue' or updates its value if it already exists
+
+    const base64Roster = encodeCommaSeparatedRosterToBase64(
+      draftedRoles.map((cardId) => {
+        const [_, role] = cardId.split('|')
+        return role
+      })
+    )
+
+    currentUrl.searchParams.set('roster', base64Roster) // Adds 'paramName=paramValue' or updates its value if it already exists
 
     const newUrl = currentUrl.toString()
     //Update query params

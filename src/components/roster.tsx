@@ -1,7 +1,7 @@
 import { useDroppable } from '@dnd-kit/core'
+import { useEffect, useState } from 'react'
 import { Roles, type Role } from '../model/roles'
 import { RoleCard } from './role-card'
-import { useEffect, useState } from 'react'
 
 interface RosterProps {
   children: any
@@ -51,7 +51,9 @@ export function Roster(props: RosterProps) {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold">Roster{rosterIsModified && '*'}</h2>
+      <div className='flex justify-center gap-3 items-center m-1'>
+      <span className="text-2xl font-bold">Roster{rosterIsModified && '*'}</span>
+      </div>
       <div className="select-none rounded-2xl bg-indigo-950 border-dashed border-slate-400 border-2 min-w-30 min-h-30 mb-2 p-2">
         <div className="flex flex-wrap gap-3 mb-3">
           <span className="grow text-xl font-bold">

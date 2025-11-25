@@ -89,6 +89,7 @@ export default defineConfig([
 - [ ] The ability to store these lineups somewhere so we can retrieve them 
   - [x] Local Storage
   - [ ] Database
-- [ ] The ability to share lineups with others
-  - [ ] Encoded url
-  - [ ] Save code
+- [x] The ability to share lineups with others
+  - [x] Encoded url
+- [ ] Generate a tailored pre-game script based on the roles in the roster
+  - [ ] Play audio as a text-to-speech for that script

@@ -1,11 +1,11 @@
+import { copyRosterToClipboard } from '../lib/role-utils'
 import { Roles } from '../model/roles'
-import type { Lineup } from '../model/rosters'
 
 interface RosterRepositoryProps {
   activePreset: string
   customRosterName: string
   deleteRoster: () => void
-  rosterLineups: Record<string, Lineup>
+  rosterLineups: Record<string, string[]>
   saveRoster: () => void
   selectRoster: (selectedRoster: string) => void
   setCustomRosterName: React.Dispatch<React.SetStateAction<string>>
@@ -20,11 +20,11 @@ export function RosterRepository({
   saveRoster,
   selectRoster,
   setCustomRosterName,
-  generateRoster
+  generateRoster,
 }: RosterRepositoryProps) {
   return (
     <div className="flex flex-wrap gap-1 justify-center content-baseline">
-      <div id="load-roster" className='md:flex-1 flex-nowrap text-nowrap'>
+      <div id="load-roster" className="md:flex-1 flex-nowrap text-nowrap">
         <div id="select-roster">
           <span className="font-semibold">Preset:</span>
           <select
@@ -52,7 +52,7 @@ export function RosterRepository({
           </span>
         </div>
       </div>
-      <div className='md:flex-1 flex-nowrap text-nowrap'>
+      <div className="md:flex-1 flex-nowrap text-nowrap">
         <input
           value={customRosterName}
           onChange={(e) => setCustomRosterName(e.target.value)}
@@ -63,7 +63,7 @@ export function RosterRepository({
           className="p-1.5 pl-3 rounded-l-xl placeholder:text-gray-100 placeholder:italic bg-slate-900 text-slate-200"
         />
         <span
-          onClick={_ => customRosterName && saveRoster()}
+          onClick={(_) => customRosterName && saveRoster()}
           className={`${!customRosterName ? 'disabled text-gray-800 bg-gray-600' : 'bg-purple-600 hover:bg-purple-500 active:bg-purple-800'} select-none font-semibold rounded-r-lg p-2 `}
         >
           Save Current Roster
@@ -71,17 +71,25 @@ export function RosterRepository({
       </div>
 
       <div className="bg-indigo-900 shadow-2xl rounded-full p-3">
-        <span className='font-semibold select-none'>Generate Lineup:</span>{' '}
+        <span className="font-semibold select-none">Generate Lineup:</span>{' '}
         {[4, 5, 6, 7, 8, 9, 10, 11].map((numPlayers) => (
           <span
             key={numPlayers}
-            className={`mx-1 px-3 py-2 select-none ${numPlayers % 2 == 0 ? 'bg-teal-700 hover:bg-teal-600 active:bg-teal-800': 'bg-amber-700 hover:bg-amber-600 active:bg-amber-800'} rounded-full cursor-pointer`}
+            className={`mx-1 px-3 py-2 select-none ${numPlayers % 2 == 0 ? 'bg-teal-700 hover:bg-teal-600 active:bg-teal-800' : 'bg-amber-700 hover:bg-amber-600 active:bg-amber-800'} rounded-full cursor-pointer`}
             onClick={() => generateRoster(numPlayers)}
           >
             {numPlayers}
           </span>
         ))}
       </div>
+
+      {/* Share Button */}
+      <span
+        onClick={copyRosterToClipboard}
+        className="select-none text-nowrap font-semibold flex-nowrap bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-800 rounded-full px-3 py-3"
+      >
+        Share Roster 🔗
+      </span>
     </div>
   )
 }
