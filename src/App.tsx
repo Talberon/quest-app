@@ -13,7 +13,7 @@ import { type Role, Roles } from './model/roles'
 import { DefaultRosters } from './model/rosters'
 
 function App() {
-  const roles = Object.values(Roles) //.filter((role) => role.balance === 0)
+  const roles = Object.values(Roles).filter((role) => role.id !== 'UNKNOWN')
 
   const [activeId, setActiveId] = useState<string | null>(null)
   const [drafted, setIsDrafted] = useState<string[]>(
