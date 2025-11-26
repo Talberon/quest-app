@@ -65,8 +65,6 @@ function App() {
           selectedRoster={rosterLineups[activePreset]}
         />
 
-        <PreGameScript roster={draftedRoleIdsToRoles(drafted)} />
-
         <label className="inline-flex items-center cursor-pointer">
           <input
             type="checkbox"
@@ -159,6 +157,10 @@ function App() {
           ) : null}
         </DragOverlay>
       </DndContext>
+
+      <PreGameScript roster={draftedRoleIdsToRoles(drafted)} />
+
+      {/* Credits */}
       <div className="py-2">
         Unofficial fan tool for Quest/Avalon Big Box.{' '}
         <a href="https://indieboardsandcards.com/our-games/avalon-big-box/">
@@ -166,6 +168,7 @@ function App() {
         </a>
         .
       </div>
+
     </div>
   )
 
