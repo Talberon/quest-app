@@ -12,6 +12,8 @@ export interface Role {
   shootable: boolean // Has information or mechanics during the game to narrow the Blind Hunter's shot
   minPlayers: number // Minimum players required to include this role
   maxPlayers: number // Maximum players allowed to include this role
+  promptOrder?: number // The order the pre-game script should be recited in
+  promptScript?: string[] // The instructions to give during the pre-game phase
 }
 
 export const Roles: Record<string, Role> = {
@@ -27,6 +29,12 @@ export const Roles: Record<string, Role> = {
     shootable: true,
     alignment: 'GOOD',
     description: 'Knows loyalty of first leader.',
+    promptOrder: 10,
+    promptScript: [
+      'Leader, if you are evil and not the Trickster, put up your thumb.',
+      "Cleric, open your eyes and look at the leader's hand.",
+      'Eyes closed. Thumbs down.',
+    ],
   },
   'Loyal Servant': {
     id: 'Loyal Servant',
@@ -92,6 +100,12 @@ export const Roles: Record<string, Role> = {
     shootable: false,
     alignment: 'GOOD',
     description: "Can move one ally's hand during Good's Last Stand.",
+    promptOrder: 10,
+    promptScript: [
+      'Morgan La Fey, put up your thumb.',
+      "Arthur, open your eyes and see Morgan's thumb.",
+      'Eyes closed. Thumbs down.',
+    ],
   },
   Duke: {
     id: 'Duke',
@@ -158,6 +172,15 @@ export const Roles: Record<string, Role> = {
     alignment: 'GOOD',
     description:
       'Randomly pick Arthur or Cleric and tuck the other role away in secret.',
+    promptOrder: 10,
+    promptScript: [
+      'Morgan La Fey, put up your thumb.',
+      "Arthur, open your eyes and see Morgan's thumb.",
+      'Eyes closed. Thumbs down.',
+      'Leader, if you are evil and not the Trickster, put up your thumb.',
+      "Cleric, open your eyes and look at the leader's hand.",
+      'Eyes closed. Thumbs down.',
+    ],
   },
   'Troubled Youth': {
     id: 'Troubled Youth',
@@ -240,6 +263,11 @@ export const Roles: Record<string, Role> = {
     correction: 0,
     alignment: 'EVIL',
     description: 'No special abilities.',
+    promptOrder: 1,
+    promptScript: [
+      'Minions of Mordred, except for the Blind Hunter/Scion/Changeling, open your eyes and see each other.',
+      'Eyes closed. Thumbs down.',
+    ],
   },
   'Minion B': {
     id: 'Minion B',
@@ -306,6 +334,12 @@ export const Roles: Record<string, Role> = {
     correction: 0,
     alignment: 'EVIL',
     description: 'Does not know evil. Is known by Morgan le Fay.',
+    promptOrder: 9,
+    promptScript: [
+      'Scion, put up your thumb.',
+      "Morgan le Fay, open your eyes and look for the Scion's thumb.",
+      'Eyes closed. Thumbs down.',
+    ],
   },
   Lunatic: {
     id: 'Lunatic',

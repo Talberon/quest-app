@@ -33,6 +33,13 @@ export function convertCommaSeparatedRolesToArray(
   })
 }
 
+export function draftedRoleIdsToRoles(draftedRoles: string[]): Role[] {
+  return draftedRoles.map((cardId) => {
+    const [_, role] = cardId.split('|')
+    return Roles[role]
+  })
+}
+
 export function decodeEncodedRoster(base64String: string): Role[] {
   const commaSeparatedRoster = atob(base64String)
   console.log('Roster from Base64String:', commaSeparatedRoster)

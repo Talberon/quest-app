@@ -6,11 +6,13 @@ import { Roster } from './components/roster'
 import { RosterRepository } from './components/roster-respository'
 import { generateRoster } from './lib/generate-roster'
 import {
+  draftedRoleIdsToRoles,
   encodeCommaSeparatedRosterToBase64,
   getRosterFromQueryString,
 } from './lib/role-utils'
 import { type Role, Roles } from './model/roles'
 import { DefaultRosters } from './model/rosters'
+import { PreGameScript } from './components/pregame-script'
 
 function App() {
   const roles = Object.values(Roles).filter((role) => role.id !== 'UNKNOWN')
@@ -62,6 +64,8 @@ function App() {
           children={drafted}
           selectedRoster={rosterLineups[activePreset]}
         />
+
+        <PreGameScript roster={draftedRoleIdsToRoles(drafted)} />
 
         <label className="inline-flex items-center cursor-pointer">
           <input
