@@ -25,7 +25,8 @@ export function PreGameScript({ roster }: { roster: Role[] }) {
                 key={`${promptIndex}-${scriptIndex}`}
                 className="italic bg-amber-800 rounded p-1"
               >
-                {promptIndex + 1}{script.length > 1 && String.fromCharCode(97 + scriptIndex)}
+                {promptIndex + 1}
+                {script.length > 1 && String.fromCharCode(97 + scriptIndex)}
                 {')'} {line}
               </div>
             )

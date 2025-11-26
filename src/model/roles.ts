@@ -87,6 +87,12 @@ export const Roles: Record<string, Role> = {
     shootable: true,
     alignment: 'GOOD',
     description: 'Knows Morgan le Fay.',
+    promptOrder: 9,
+    promptScript: [
+      'Morgan La Fey, put up your thumb.',
+      "Arthur, open your eyes and see Morgan's thumb.",
+      'Eyes closed. Thumbs down.',
+    ],
   },
   Archduke: {
     id: 'Archduke',
@@ -100,12 +106,6 @@ export const Roles: Record<string, Role> = {
     shootable: false,
     alignment: 'GOOD',
     description: "Can move one ally's hand during Good's Last Stand.",
-    promptOrder: 10,
-    promptScript: [
-      'Morgan La Fey, put up your thumb.',
-      "Arthur, open your eyes and see Morgan's thumb.",
-      'Eyes closed. Thumbs down.',
-    ],
   },
   Duke: {
     id: 'Duke',
@@ -281,6 +281,7 @@ export const Roles: Record<string, Role> = {
     correction: 0,
     alignment: 'EVIL',
     description: 'No special abilities.',
+    promptOrder: 1,
   },
   'Minion C': {
     id: 'Minion C',
@@ -294,6 +295,7 @@ export const Roles: Record<string, Role> = {
     correction: 0,
     alignment: 'EVIL',
     description: 'No special abilities.',
+    promptOrder: 1,
   },
   Trickster: {
     id: 'Trickster',
