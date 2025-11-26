@@ -36,7 +36,7 @@ function App() {
 
   return (
     <div className="">
-      <div className="sticky top-1 z-10 bg-amber-900 rounded-4xl p-2 shadow-gray-900">
+      <div className="top-1 z-10 bg-amber-900 rounded-4xl p-2 shadow-gray-900">
         <div className="z-10 mb-3 text-indigo-950 text-shadow-lg text-2xl font-bold bg-amber-700 p-2 rounded-full">
           <span className="font-serif text-3xl italic">Quest</span> Drafter
         </div>
