@@ -3,6 +3,10 @@ import type { Role } from '../model/roles'
 export function PreGameScript({ roster }: { roster: Role[] }) {
   const prompts = [
     ['Everyone, close your eyes and put your fists out in front of you.'],
+    [
+      'Minions of Mordred, except for the Blind Hunter/Scion/Changeling, open your eyes and see each other.',
+      'Eyes closed. Thumbs down.',
+    ],
     ...roster
       .filter(
         (role) =>

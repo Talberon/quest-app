@@ -263,11 +263,6 @@ export const Roles: Record<string, Role> = {
     correction: 0,
     alignment: 'EVIL',
     description: 'No special abilities.',
-    promptOrder: 1,
-    promptScript: [
-      'Minions of Mordred, except for the Blind Hunter/Scion/Changeling, open your eyes and see each other.',
-      'Eyes closed. Thumbs down.',
-    ],
   },
   'Minion B': {
     id: 'Minion B',
