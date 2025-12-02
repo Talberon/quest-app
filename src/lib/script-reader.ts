@@ -43,7 +43,7 @@ function parsedScript(roles: Role[]): ScriptLines[] {
     lines.forEach((line) => {
       scriptLines.push({
         text: line,
-        pauseDurationMs: 1000,
+        pauseDurationMs: 2000,
       })
     })
   })

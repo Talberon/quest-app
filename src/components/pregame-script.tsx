@@ -9,6 +9,8 @@ export function PreGameScript({ roster }: { roster: Role[] }) {
     <div className="flex flex-col gap-2 bg-amber-700 p-2 rounded m-2 max-w-150 justify-self-center">
       <div className="p-2 font-semibold rounded bg-amber-600">
         <span className='font-serif italic text-2xl'>Script</span>{' '}
+        {/* Play Script Button */}
+        {/* TODO: Allow speed adjustment, voice selection */}
         <span
           onClick={() => {
             if (!isDoneReading) return
