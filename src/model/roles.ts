@@ -210,6 +210,12 @@ export const Roles: Record<string, Role> = {
     alignment: 'GOOD',
     description:
       '4-5P Only. Randomly pick 2 among Youth, Loyal Servant, or Cleric.',
+    promptOrder: 11,
+    promptScript: (roles: Role[]) => [
+      `Leader, if you are evil${roles.some(role => role.id === 'Trickster') ? ' and not the Trickster' : ''}, put up your thumb.`,
+      "Cleric, if you are in the game, open your eyes and look at the leader's hand.",
+      'Eyes closed. Thumbs down.',
+    ],
   },
   'RNG Good B': {
     id: 'RNG Good B',
