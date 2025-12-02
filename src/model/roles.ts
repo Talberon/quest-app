@@ -6,6 +6,7 @@ export interface Role {
   displayName: string
   description: string
   image: string
+  isBlind?: boolean // Whether the evil role knows who the evil players are
   information: number // Amount of information the role provides during the game
   correction: number // Amount of correction the role provides during the game
   balance: number // Positive for good, negative for evil
@@ -13,7 +14,7 @@ export interface Role {
   minPlayers: number // Minimum players required to include this role
   maxPlayers: number // Maximum players allowed to include this role
   promptOrder?: number // The order the pre-game script should be recited in
-  promptScript?: string[] // The instructions to give during the pre-game phase
+  promptScript?: (roles: Role[]) => string[] // The instructions to give during the pre-game phase
 }
 
 export const Roles: Record<string, Role> = {
@@ -30,8 +31,8 @@ export const Roles: Record<string, Role> = {
     alignment: 'GOOD',
     description: 'Knows loyalty of first leader.',
     promptOrder: 10,
-    promptScript: [
-      'Leader, if you are evil and not the Trickster, put up your thumb.',
+    promptScript: (roles) => [
+      `Leader, if you are evil${roles.some(role => role.id === 'Trickster') ? ' and not the Trickster' : ''}, put up your thumb.`,
       "Cleric, open your eyes and look at the leader's hand.",
       'Eyes closed. Thumbs down.',
     ],
@@ -88,7 +89,7 @@ export const Roles: Record<string, Role> = {
     alignment: 'GOOD',
     description: 'Knows Morgan le Fay.',
     promptOrder: 9,
-    promptScript: [
+    promptScript: (_) => [
       'Morgan La Fey, put up your thumb.',
       "Arthur, open your eyes and see Morgan's thumb.",
       'Eyes closed. Thumbs down.',
@@ -173,12 +174,12 @@ export const Roles: Record<string, Role> = {
     description:
       'Randomly pick Arthur or Cleric and tuck the other role away in secret.',
     promptOrder: 10,
-    promptScript: [
+    promptScript: (roles: Role[]) => [
       'Morgan La Fey, put up your thumb.',
-      "Arthur, open your eyes and see Morgan's thumb.",
+      "Arthur, if you are in the game, open your eyes and see Morgan's thumb.",
       'Eyes closed. Thumbs down.',
-      'Leader, if you are evil and not the Trickster, put up your thumb.',
-      "Cleric, open your eyes and look at the leader's hand.",
+      `Leader, if you are evil${roles.some(role => role.id === 'Trickster') ? ' and not the Trickster' : ''}, put up your thumb.`,
+      "Cleric, if you are in the game, open your eyes and look at the leader's hand.",
       'Eyes closed. Thumbs down.',
     ],
   },
@@ -248,6 +249,7 @@ export const Roles: Record<string, Role> = {
     information: 0,
     correction: 0,
     alignment: 'EVIL',
+    isBlind: true,
     description:
       'Does not know evil. Can shoot Cleric plus another role, or just Arthur in the post-game.',
   },
@@ -330,9 +332,10 @@ export const Roles: Record<string, Role> = {
     information: 0,
     correction: 0,
     alignment: 'EVIL',
+    isBlind: true,
     description: 'Does not know evil. Is known by Morgan le Fay.',
     promptOrder: 9,
-    promptScript: [
+    promptScript: (_) => [
       'Scion, put up your thumb.',
       "Morgan le Fay, open your eyes and look for the Scion's thumb.",
       'Eyes closed. Thumbs down.',
@@ -375,6 +378,7 @@ export const Roles: Record<string, Role> = {
     information: 0,
     correction: 0,
     alignment: 'EVIL',
+    isBlind: true,
     description: 'Does not know evil. Evil does not know them.',
   },
   Mutineer: {
